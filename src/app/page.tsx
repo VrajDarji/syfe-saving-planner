@@ -5,7 +5,6 @@ import { Target } from "lucide-react";
 export default function Home() {
   return (
     <div className="relative w-full h-full flex flex-col gap-y-8">
-      {/* Header Section */}
       <div className="w-full flex flex-col gap-y-1.5 items-center justify-center">
         <h1 className="text-4xl font-bold flex gap-x-1 items-center tracking-normal">
           <Target className="text-blue-700" />
@@ -15,9 +14,7 @@ export default function Home() {
           Track your financial goals and build your future
         </p>
       </div>
-      {/* Overview */}
       <OverviewDashboard />
-      {/* Goal Section */}
       <Goals />
     </div>
   );

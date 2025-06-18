@@ -15,7 +15,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, setOpenChange, children }) => {
     if (isOpen) {
       setShow(true);
     } else {
-      const timeout = setTimeout(() => setShow(false), 200); // match animation duration
+      const timeout = setTimeout(() => setShow(false), 200);
       return () => clearTimeout(timeout);
     }
   }, [isOpen]);
@@ -29,7 +29,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, setOpenChange, children }) => {
           onClick={setOpenChange}
         >
           <div
-            className={`bg-white rounded-xl text-gray-900 shadow-md p-6 max-w-2xl w-full 
+            className={`bg-white rounded-xl text-gray-900 shadow-md p-6 max-w-md w-full 
               transform transition-all duration-200
               ${
                 isOpen

@@ -13,6 +13,7 @@ export type GoalProps = {
 type useGoalStoreProps = {
   goals: GoalProps[];
   setGoals: (goal: GoalProps) => void;
+  updateGoal: (goalId: string, data: Partial<GoalProps>) => void;
 };
 
 export const useGoalStore = create<useGoalStoreProps>()(
@@ -21,6 +22,28 @@ export const useGoalStore = create<useGoalStoreProps>()(
       goals: [],
       setGoals: (goal: GoalProps) =>
         set((state) => ({ goals: [...state.goals, goal] })),
+      updateGoal: (id: string, data: Partial<GoalProps>) =>
+        set((state) => ({
+          goals: state.goals.map((goal) => {
+            if (goal.id !== id) {
+              return goal;
+            }
+            const updatedContributions =
+              data.contributions ?? goal.contributions;
+
+            const updatedSaved = updatedContributions.reduce(
+              (acc, curr) => acc + curr.val,
+              0
+            );
+
+            return {
+              ...goal,
+              ...data,
+              contributions: updatedContributions,
+              saved: updatedSaved,
+            };
+          }),
+        })),
     }),
     { name: "goals-store" }
   )
@@ -44,3 +67,24 @@ export const useModal = create<ModalContextType>((set) => ({
   },
   setClose: () => set({ isOpen: false, modal: null }),
 }));
+
+type useTypeExchangeRate = {
+  rate: number;
+  lastUpdated: string;
+  setRate: (rate: number) => void;
+  setLastUpdated: (time: string) => void;
+};
+
+export const useExchangeRate = create<useTypeExchangeRate>()(
+  persist(
+    (set) => ({
+      rate: 85.32,
+      lastUpdated: "",
+      setRate: (rate: number) => set({ rate }),
+      setLastUpdated: (time: string) => set({ lastUpdated: time }),
+    }),
+    {
+      name: "exchange-rate-store",
+    }
+  )
+);

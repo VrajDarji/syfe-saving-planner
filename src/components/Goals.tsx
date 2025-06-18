@@ -10,6 +10,7 @@ import GoalModal from "./modal/GoalModal";
 const Goals = () => {
   const [goals] = useGoalStore(useShallow((state) => [state.goals]));
   const [setOpen] = useModal(useShallow((state) => [state.setOpen]));
+
   return (
     <div className="w-full flex flex-col gap-y-4">
       <div className="flex w-full items-center justify-between">
