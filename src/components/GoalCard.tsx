@@ -4,6 +4,7 @@ import { CheckCircle, Plus } from "lucide-react";
 import React from "react";
 import { useShallow } from "zustand/shallow";
 import ContributionModal from "./modal/ContributionModal";
+import { formatCurrency } from "@/utils/currencyFormatter";
 
 interface GoalCardProps {
   goal: GoalProps;
@@ -16,6 +17,10 @@ const GoalCard: React.FC<GoalCardProps> = ({ goal }) => {
   // States
   const [setOpen] = useModal(useShallow((state) => [state.setOpen]));
   const [exchangeRate] = useExchangeRate(useShallow((state) => [state.rate]));
+
+  if (!exchangeRate) {
+    return <>Loading....</>;
+  }
 
   const convertedCurrr =
     goal.currency === "usd"
@@ -38,15 +43,12 @@ const GoalCard: React.FC<GoalCardProps> = ({ goal }) => {
       </div>
       <div className="mb-6">
         <div className="text-2xl font-bold text-blue-600 mb-1">
-          {goal.currency === "usd" ? "$" : "₹"}
-          {goal.target.toLocaleString(
-            goal.currency === "inr" ? "en-IN" : "en-US"
-          )}
+          {formatCurrency(goal.target, goal.currency)}
         </div>
         <div className="text-sm text-gray-500">
-          {goal.currency === "inr" ? "$" : "₹"}
-          {convertedCurrr.toLocaleString(
-            goal.currency === "inr" ? "en-US" : "en-IN"
+          {formatCurrency(
+            convertedCurrr,
+            goal.currency === "inr" ? "usd" : "inr"
           )}
         </div>
       </div>
@@ -54,11 +56,7 @@ const GoalCard: React.FC<GoalCardProps> = ({ goal }) => {
         <div className="flex justify-between items-center mb-2">
           <span className="text-sm font-medium text-gray-700">Progress</span>
           <span className="text-sm font-medium text-gray-900">
-            {goal.currency === "usd" ? "$" : "₹"}
-            {goal.saved.toLocaleString(
-              goal.currency === "inr" ? "en-IN" : "en-US"
-            )}{" "}
-            saved
+            {formatCurrency(goal.saved, goal.currency)} saved
           </span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
@@ -71,13 +69,7 @@ const GoalCard: React.FC<GoalCardProps> = ({ goal }) => {
           <span>{goal.contributions.length} contributions</span>
           <span>
             {!isGoalReached ? (
-              <>
-                {goal.currency === "usd" ? "$" : "₹"}
-                {remainingAmount.toLocaleString(
-                  goal.currency === "inr" ? "en-IN" : "en-US"
-                )}{" "}
-                remaining
-              </>
+              <>{formatCurrency(remainingAmount, goal.currency)} remaining</>
             ) : (
               "Completed"
             )}

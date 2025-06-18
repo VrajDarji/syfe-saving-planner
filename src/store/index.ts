@@ -57,7 +57,6 @@ type ModalContextType = {
 };
 
 export const useModal = create<ModalContextType>((set) => ({
-  data: {},
   isOpen: false,
   modal: null,
   setOpen: async (modal: React.ReactNode) => {
@@ -69,7 +68,7 @@ export const useModal = create<ModalContextType>((set) => ({
 }));
 
 type useTypeExchangeRate = {
-  rate: number;
+  rate: number | null;
   lastUpdated: string;
   setRate: (rate: number) => void;
   setLastUpdated: (time: string) => void;
@@ -78,7 +77,7 @@ type useTypeExchangeRate = {
 export const useExchangeRate = create<useTypeExchangeRate>()(
   persist(
     (set) => ({
-      rate: 85.32,
+      rate: null,
       lastUpdated: "",
       setRate: (rate: number) => set({ rate }),
       setLastUpdated: (time: string) => set({ lastUpdated: time }),

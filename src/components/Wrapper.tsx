@@ -8,7 +8,7 @@ interface WrapperProps {
 
 const Wrapper: React.FC<WrapperProps> = ({ children }) => {
   return (
-    <div className="px-28 py-16 w-full min-h-screen bg-indigo-100 text-black">
+    <div className="px-4 md:px-28 py-6 md:py-16 w-full min-h-screen bg-indigo-100 text-black">
       {children}
     </div>
   );

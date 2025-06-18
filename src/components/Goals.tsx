@@ -30,9 +30,9 @@ const Goals = () => {
           </p>
         </div>
       )}
-      <div className="grid grid-cols-3 gap-4">
-        {goals.map((goal, index: number) => (
-          <GoalCard goal={goal} key={index} />
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {goals.map((goal) => (
+          <GoalCard goal={goal} key={goal.id} />
         ))}
       </div>
     </div>

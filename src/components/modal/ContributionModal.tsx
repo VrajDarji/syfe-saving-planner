@@ -32,9 +32,10 @@ const ContributionModal: React.FC<ContributionModalProps> = ({ goal }) => {
       contributions: prevCont,
     };
     updateGoal(goal.id, data);
-    setIsLoading(false);
-    setClose();
-    console.log({ goalData });
+    setTimeout(() => {
+      setIsLoading(false);
+      setClose();
+    }, 700);
   };
   const handleTargetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -46,7 +47,6 @@ const ContributionModal: React.FC<ContributionModalProps> = ({ goal }) => {
       }));
     }
   };
-  console.log({ d: goalData.date });
 
   return (
     <Dialog isOpen={isOpen} setOpenChange={setClose}>
@@ -124,7 +124,7 @@ const ContributionModal: React.FC<ContributionModalProps> = ({ goal }) => {
                 disabled={!goalData.date || !goalData.target}
                 className="flex-1 px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
-                {isLoading ? "Creating Goal.." : "Create Goal"}
+                {isLoading ? "Updating.." : "Update"}
               </button>
             </div>
           </form>

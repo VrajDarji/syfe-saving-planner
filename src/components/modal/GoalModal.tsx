@@ -33,9 +33,10 @@ const GoalModal = () => {
       currency: goalData.currency,
     };
     setGoal(data);
-    setIsLoading(false);
-    setClose();
-    console.log({ goalData });
+    setTimeout(() => {
+      setIsLoading(false);
+      setClose();
+    }, 700);
   };
 
   const handleTargetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
